@@ -1,0 +1,49 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+defaults:
+  run:
+    working-directory: llm-shell
+
+jobs:
+  windows-msi:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: llm-shell/package-lock.json
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: Install frontend deps
+        run: npm ci
+
+      - name: Typecheck + unit tests
+        run: |
+          npx tsc -b --pretty false
+          npm test
+
+      - name: Build Tauri (MSI/NSIS)
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          projectPath: llm-shell
+          tagName: ${{ github.ref_name }}
+          releaseName: "LLM Shell ${{ github.ref_name }}"
+          releaseBody: "See CHANGELOG.md for details."
+          releaseDraft: true
+          prerelease: false
+          args: --bundles msi,nsis

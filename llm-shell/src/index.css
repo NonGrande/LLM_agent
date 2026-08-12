@@ -1,0 +1,260 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg-primary: #0d1117;
+  --color-bg-secondary: #161b22;
+  --color-bg-tertiary: #21262d;
+  --color-border-default: #30363d;
+  --color-border-muted: #21262d;
+  --color-text-primary: #e6edf3;
+  --color-text-secondary: #8b949e;
+  --color-text-muted: #6e7681;
+  --color-accent-blue: #58a6ff;
+  --color-accent-green: #7ee787;
+  --color-accent-red: #f85149;
+  --color-accent-yellow: #d29922;
+  --color-accent-purple: #bc8cff;
+  --color-accent-orange: #f0883e;
+  --font-mono: ui-monospace, "Cascadia Code", "Cascadia Mono", "Segoe UI Mono", "Source Code Pro", Menlo, Consolas, monospace;
+  --font-sans: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-size: 13px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-accent-blue) 35%, transparent);
+  color: var(--color-text-primary);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #30363d;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #484f58;
+}
+
+/* Light theme overrides (Appearance → Light / System) */
+html.theme-light {
+  color-scheme: light;
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f6f8fa;
+  --color-bg-tertiary: #eaeef2;
+  --color-border-default: #d0d7de;
+  --color-border-muted: #eaeef2;
+  --color-text-primary: #1f2328;
+  --color-text-secondary: #59636e;
+  --color-text-muted: #818b98;
+  --color-accent-blue: #0969da;
+  --color-accent-green: #1a7f37;
+  --color-accent-red: #cf222e;
+  --color-accent-yellow: #9a6700;
+  --color-accent-purple: #8250df;
+}
+
+html.theme-light body {
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+
+/* Dense Cursor-like chrome */
+button,
+select,
+input,
+textarea {
+  font-family: inherit;
+}
+
+input,
+textarea,
+select {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible,
+[role="menuitem"]:focus-visible,
+[role="option"]:focus-visible,
+[role="separator"]:focus-visible {
+  outline: 1px solid var(--color-accent-blue);
+  outline-offset: -1px;
+}
+
+/* Sidebar / panel section labels — one rhythm across Chats, Files, Workspace */
+.ui-section-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  line-height: 1;
+}
+
+.ui-section-header {
+  display: flex;
+  height: 28px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-border-muted);
+  padding: 0 8px;
+}
+
+.ui-chrome-btn {
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  transition: color 120ms ease, background-color 120ms ease;
+}
+
+.ui-chrome-btn:hover {
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
+}
+
+.ui-chrome-btn:disabled {
+  opacity: 0.4;
+}
+
+/* Always-faint destructive × — never fully hide */
+.ui-icon-close {
+  border-radius: 4px;
+  padding: 2px 4px;
+  font-size: 12px;
+  line-height: 1;
+  color: var(--color-text-muted);
+  opacity: 0.4;
+  transition: opacity 120ms ease, color 120ms ease, background-color 120ms ease;
+}
+
+.ui-icon-close:hover {
+  background: var(--color-bg-tertiary);
+  color: var(--color-accent-red);
+  opacity: 1;
+}
+
+.group:hover .ui-icon-close,
+.group:focus-within .ui-icon-close {
+  opacity: 1;
+}
+
+.ui-modal-scrim {
+  overscroll-behavior: contain;
+}
+
+/* Presentation-aligned cards / modals */
+.ui-card {
+  border-radius: 8px;
+  border: 1px solid var(--color-border-default);
+  background: var(--color-bg-secondary);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.ui-modal {
+  border-radius: 12px;
+  border: 1px solid var(--color-border-default);
+  background: var(--color-bg-secondary);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+}
+
+.ui-app-header {
+  background:
+    radial-gradient(ellipse at 12% 0%, color-mix(in srgb, var(--color-accent-blue) 10%, transparent) 0%, transparent 55%),
+    var(--color-bg-secondary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.prose-chat h1,
+.prose-chat h2,
+.prose-chat h3 {
+  font-weight: 600;
+  margin: 0.75em 0 0.35em;
+  line-height: 1.25;
+  text-wrap: pretty;
+}
+
+.prose-chat h1 {
+  font-size: 1.35em;
+}
+
+.prose-chat h2 {
+  font-size: 1.2em;
+}
+
+.prose-chat h3 {
+  font-size: 1.05em;
+}
+
+.prose-chat p {
+  margin: 0.4em 0;
+}
+
+.prose-chat ul,
+.prose-chat ol {
+  margin: 0.4em 0;
+  padding-left: 1.25em;
+}
+
+.prose-chat pre {
+  margin: 0.5em 0;
+  overflow-x: auto;
+}
+
+.prose-chat blockquote {
+  margin: 0.5em 0;
+  padding-left: 0.75em;
+  border-left: 3px solid var(--color-border-default);
+  color: var(--color-text-secondary);
+}

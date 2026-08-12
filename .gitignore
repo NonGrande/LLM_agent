@@ -1,0 +1,33 @@
+# Git ignore — LLM_agent monorepo root
+
+# Dependencies & build
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+llm-shell/src-tauri/target/
+
+# Env & secrets
+.env
+.env.*
+*.pem
+*.key
+!*.key.pub
+keys/updater.key
+**/llm-shell-persist.json
+**/*-persist.json.bak
+
+# Logs & OS
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Tauri / Vite
+*.local
+dist-ssr/
+
+# Test artifacts
+coverage/
