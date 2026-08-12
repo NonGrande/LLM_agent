@@ -35,6 +35,12 @@ Working project status (not the publish pack): [docs/STATUS.md](docs/STATUS.md) 
 
 Map of the publish tree: [docs/publish/README.md](docs/publish/README.md).
 
+## How it was built / Как это писалось
+
+**EN.** Built as a Windows product (Tauri + React), not a VS Code fork. Much of the code and docs was produced in Cursor with agents — sprints, live STATUS/TZ, `tsc`/vitest — plus real debugging when small models skipped tools, huge diffs crashed the UI, or context limits hit. Local open-weight models via Ollama (~7–8B) are supported for offline use but often simulate shell instead of emitting `tool_calls`; Strict tools and the agent action algorithm exist because of that. Cloud OpenAI-compatible profiles (OpenRouter, xAI, Yandex, …) need failover and proxy. Longer RU/EN notes: [docs/publish/ru](docs/publish/ru/README.md#как-это-писалось) · [docs/publish/en](docs/publish/en/README.md#how-it-was-built).
+
+**RU.** Собирали под Windows без встраивания VS Code. Много кода шло через Cursor/агентов и ручную отладку. Локальные open-модели (Ollama, ~7–8B) дешёвые, но часто «рисуют» bash в чате — отсюда Strict tools. Облако — профили OpenAI-совместимых API, failover и proxy. Полный текст: [docs/publish/ru](docs/publish/ru/README.md#как-это-писалось).
+
 ## Layout
 
 ```

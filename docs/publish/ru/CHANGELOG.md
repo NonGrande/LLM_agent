@@ -9,7 +9,7 @@
 - Алгоритм действий агента в system prompt + **Strict tools** (nudge-retry для слабых локальных моделей).  
 - Settings → **Rules & RAG**; кнопки Pin → Success RAG и **📌 AGENTS**.  
 - Multi-LSP, ghost-text, Sync models, MCP stdio pipe, signed updater (нужен свой endpoint/ключи — ops).  
-- Документация: единое TZ v4.1 + набор `docs/publish/` (RU/EN).
+- Документация: единое TZ v4.1 + набор `docs/publish/` (RU/EN); секция «Как это писалось» в README publish.
 
 ## 0.3.0
 

@@ -9,7 +9,7 @@ Full history: root [`CHANGELOG.md`](../../../CHANGELOG.md).
 - Agent action algorithm in the system prompt + **Strict tools** (nudge-retry for weak local models).  
 - Settings → **Rules & RAG**; Pin → Success RAG and **📌 AGENTS**.  
 - Multi-LSP, ghost-text, Sync models, MCP stdio pipe, signed updater (own endpoint/keys = ops).  
-- Docs: unified TZ v4.1 + `docs/publish/` pack (RU/EN).
+- Docs: unified TZ v4.1 + `docs/publish/` pack (RU/EN); “How it was built” section in publish READMEs.
 
 ## 0.3.0
 
