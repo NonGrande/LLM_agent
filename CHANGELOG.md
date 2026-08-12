@@ -22,7 +22,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
 - Model picker lists only the active ready profile’s green models.
 
 ### Changed
-- Docs: [TZ.md](docs/TZ.md) v4.1; bilingual publish pack [`docs/publish/`](docs/publish/) (RU/EN); Phase 2/3 TZ archived as redirects.
+- Docs: [TZ.md](docs/TZ.md) v4.1; bilingual publish pack [`docs/publish/`](docs/publish/) (RU/EN); Phase 2/3 TZ archived as redirects; honest “How it was built” notes in root + publish READMEs.
 
 ## [0.3.0] - 2026-08-11
 
