@@ -31,7 +31,7 @@ MSI build: `npm run tauri:build` → `llm-shell/src-tauri/target/release/bundle/
 | Changelog | [ru/CHANGELOG.md](docs/publish/ru/CHANGELOG.md) | [en/CHANGELOG.md](docs/publish/en/CHANGELOG.md) |
 | Architecture | [ru/ARCHITECTURE.md](docs/publish/ru/ARCHITECTURE.md) | [en/ARCHITECTURE.md](docs/publish/en/ARCHITECTURE.md) |
 
-Working project status (not the publish pack): [docs/STATUS.md](docs/STATUS.md) · full FR registry: [docs/TZ.md](docs/TZ.md).
+Working FR registry: [docs/TZ.md](docs/TZ.md). Stakeholder pack: [docs/publish/](docs/publish/).
 
 Map of the publish tree: [docs/publish/README.md](docs/publish/README.md).
 

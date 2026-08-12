@@ -17,6 +17,19 @@ keys/updater.key
 **/llm-shell-persist.json
 **/*-persist.json.bak
 
+# Internal project kitchen (local only — not for public GitHub)
+docs/stages/
+docs/progress.md
+docs/STATUS.md
+docs/agent_system/
+docs/PLAN-PHASE2.md
+docs/PLAN-PHASE3.md
+docs/TZ-PHASE2.md
+docs/TZ-PHASE3.md
+docs/TZ-SUCCESS-RAG.md
+docs/presentation.html
+test-tool.txt
+
 # Logs & OS
 *.log
 .DS_Store

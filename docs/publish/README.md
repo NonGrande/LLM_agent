@@ -1,24 +1,25 @@
 # Publish docs (RU + EN)
 
-Что класть в публичный GitHub / раздачу стейкхолдерам.
+What belongs on public GitHub / stakeholder handout.
 
-| Путь | Язык | Содержание |
-|------|------|------------|
-| [ru/](ru/) | RU (основной) | обзор, ТЗ, USER, CHANGELOG, архитектура |
-| [en/](en/) | EN | тот же набор: README, SPEC, USER, CHANGELOG, ARCHITECTURE |
+| Path | Language | Contents |
+|------|----------|----------|
+| [ru/](ru/) | RU (primary) | overview, TZ, USER, CHANGELOG, architecture |
+| [en/](en/) | EN | same set: README, SPEC, USER, CHANGELOG, ARCHITECTURE |
 
-Живые рабочие файлы проекта (не дублировать сюда при каждой правке кода — синхронизировать при релизе/шаге docs):
+Also public (repo root / `docs/`):
 
-- `docs/STATUS.md` — Done / Remaining  
-- `docs/TZ.md` — единый реестр FR (источник для `ru/TZ.md` / `en/SPEC.md`)  
-- `docs/USER.md` · `docs/ARCHITECTURE.md` · корневой `CHANGELOG.md`  
-- `docs/progress.md` · `docs/stages/` — журнал разработки  
+- Root [README.md](../../README.md) — product landing  
+- [TZ.md](../TZ.md) · [USER.md](../USER.md) · [ARCHITECTURE.md](../ARCHITECTURE.md)  
+- Root [CHANGELOG.md](../../CHANGELOG.md)
 
-Правило: **STATUS + TZ в `docs/` — правда**. Каталог `publish/` — срезанный, читаемый набор без журнала этапов и без внутренних PLAN.
+**Not published** (local only, gitignored): `docs/stages/`, `progress.md`, `STATUS.md`, `agent_system/`, internal PLAN/TZ archives, `presentation.html`.
+
+Rule: **TZ + publish READMEs** are the public source of truth for requirements and “how it was built”. Sprint kitchen stays offline.
 
 ```
 docs/publish/
-  README.md          ← этот файл
+  README.md          ← this file
   ru/
     README.md
     TZ.md
