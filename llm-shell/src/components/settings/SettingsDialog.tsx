@@ -1260,6 +1260,20 @@ export function SettingsDialog() {
               <label className="flex items-center gap-2">
                 <input
                   type="checkbox"
+                  checked={settings.agent.planThenExecute !== false}
+                  onChange={(e) => updateAgent({ planThenExecute: e.target.checked })}
+                />
+                <span className="inline-flex items-center gap-1.5">
+                  Plan → Execute
+                  <Tooltip
+                    content="В режиме Agent сначала запрашивается JSON-план (tool + шаги), затем исполнение tools. Помогает слабым локальным моделям."
+                    label="Подсказка: Plan then Execute"
+                  />
+                </span>
+              </label>
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
                   checked={settings.agent.strictTools ?? false}
                   onChange={(e) => updateAgent({ strictTools: e.target.checked })}
                 />

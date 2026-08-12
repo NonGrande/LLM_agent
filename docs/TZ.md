@@ -102,6 +102,7 @@ Cursor · Claude Code · Copilot Workspace · Aider — ориентиры UX/а
 | A-17 | Sync models (`/models` → профили) | ✅ |
 | A-18 | Green models = только active/ready profile | ✅ |
 | A-19 | Agent action algorithm + Strict tools (`tool_choice: required` + 1 nudge-retry) | ✅ |
+| A-20 | Plan→Execute: JSON tool plan before Agent tool loop | ✅ |
 
 ### 3.2. IDE & context
 

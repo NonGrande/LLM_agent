@@ -266,6 +266,7 @@ export function ensureProfiles(settings: AppSettings): AppSettings {
       offlineMode: settings.agent?.offlineMode ?? false,
       ragFromSuccess: settings.agent?.ragFromSuccess ?? true,
       strictTools: settings.agent?.strictTools ?? false,
+      planThenExecute: settings.agent?.planThenExecute ?? true,
       mode: settings.agent?.mode ?? "agent",
       workingDirectory: migrated.workspacePath || settings.agent?.workingDirectory || "",
     },

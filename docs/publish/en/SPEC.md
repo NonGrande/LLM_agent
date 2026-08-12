@@ -1,7 +1,7 @@
 # LLM Shell — Spec (publish, EN)
 
 > Slice **v4.1** · product **0.3.0** · 2026-08-12  
-> Living FR registry: [`docs/TZ.md`](../../TZ.md) · Done/Remaining: [`docs/STATUS.md`](../../STATUS.md)
+> Living FR registry: [`docs/TZ.md`](../../TZ.md). Done/Remaining is tracked locally (not in the public tree).
 
 ## Purpose
 

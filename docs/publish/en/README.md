@@ -2,7 +2,7 @@
 
 Desktop agent-first IDE for Windows (Tauri 2 + React). LLM chat, file/shell/git tools, Monaco, MCP — not a VS Code fork.
 
-**Version:** 0.3.0 · **tests:** ~156 vitest · **Cursor-likeness (rough):** ~89–91% — see live [STATUS](../../STATUS.md).
+**Version:** 0.3.0 · **tests:** ~156 vitest · **Cursor-likeness (rough):** ~89–91% (local STATUS).
 
 ## Run from source
 

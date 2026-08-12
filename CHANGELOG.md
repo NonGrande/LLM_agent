@@ -10,6 +10,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
 - `@docs` / `@web` mention previews (chips + Docs/Web context on send); Rust `http_get_text` (proxy-aware).
 - Sprint 11 IDE chrome: Command Palette (`Ctrl+Shift+P`), Quick Open (`Ctrl+P`), Find in Files, Problems/Outline panels, Inline Edit (`Ctrl+K`).
 - Agent action algorithm in system prompt + Strict tools nudge-retry for weak local models (A-19).
+- Plan→Execute: optional JSON tool plan before Agent tool loop (A-20; Settings → Agent).
 - Signed updater (`tauri-plugin-updater` + pubkey); Install & relaunch; GitHub soft check fallback (Sprint 9).
 - Editor: LLM ghost-text and LSP baseline → multi-LSP registry (TS/HTML/CSS/JSON/Python/Rust/C++/C#/Go) + Monaco bridge; agent tool `lsp_hover` (Sprint 9–10).
 - Context attach: click/drag files into chat with inline contents.

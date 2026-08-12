@@ -33,6 +33,12 @@ import { toolResultForChat } from "@/services/agent/toolResultFormat";
 import { buildHandoffPacket, shouldAttemptHandoff } from "@/services/agent/handoff";
 import { STRICT_TOOLS_NUDGE } from "@/utils/constants";
 import type { AgentMode } from "@/types";
+import {
+  formatPlanForChat,
+  formatPlanForExecute,
+  parseTaskPlan,
+  planPhaseUserNudge,
+} from "@/services/agent/taskPlan";
 
 export interface AgentLoopDeps {
   client: LLMClient;
@@ -175,6 +181,76 @@ export async function runAgentLoop(userText: string, deps: AgentLoopDeps): Promi
   }
 
   chat.addMessage({ role: "user", content: userText });
+
+  // A1: Plan→Execute — structured JSON plan before tools (Agent mode only)
+  if (agentMode === "agent" && settings.agent.planThenExecute !== false) {
+    if (deps.abortSignal?.aborted) {
+      chat.setStreaming(false);
+      agent.setStatus("idle");
+      return;
+    }
+    agent.setStatus("thinking");
+    const planMsgId = chat.addMessage({
+      role: "assistant",
+      content: "Planning…",
+      streaming: true,
+    });
+    let planText = "";
+    try {
+      const historyForPlan = useChatStore
+        .getState()
+        .currentSession()
+        .messages.filter((m) => m.id !== planMsgId);
+      const apiPlan = [
+        ...toApiMessages(ctx.trim(historyForPlan)),
+        { role: "user" as const, content: planPhaseUserNudge(userText) },
+      ];
+      for await (const ev of client.streamChat({
+        model: router.current(),
+        messages: apiPlan,
+        tools: undefined,
+        tool_choice: "none",
+        temperature: 0.1,
+        max_tokens: Math.min(settings.generation.maxTokens, 1500),
+        top_p: settings.generation.topP,
+        stream: true,
+      })) {
+        if (deps.abortSignal?.aborted) {
+          client.cancel();
+          break;
+        }
+        if (ev.type === "content") {
+          planText += ev.text;
+          useChatStore.getState().updateMessage(planMsgId, {
+            content: planText || "Planning…",
+            streaming: true,
+          });
+        }
+      }
+    } catch (err) {
+      console.warn("plan phase:", errorMessage(err));
+    }
+
+    const plan = parseTaskPlan(planText);
+    if (plan) {
+      useChatStore.getState().updateMessage(planMsgId, {
+        content: formatPlanForChat(plan),
+        streaming: false,
+      });
+      chat.addMessage({
+        role: "system",
+        content: formatPlanForExecute(plan),
+      });
+    } else {
+      useChatStore.getState().updateMessage(planMsgId, {
+        content:
+          planText.trim().length > 20
+            ? `## Execution plan (unstructured)\n\n${planText.trim().slice(0, 2000)}\n\n_Executing with tools…_`
+            : "No structured plan — executing with tools directly.",
+        streaming: false,
+      });
+    }
+  }
 
   try {
     for (let iter = 1; iter <= maxIter; iter++) {

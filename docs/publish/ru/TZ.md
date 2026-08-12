@@ -1,7 +1,7 @@
 # LLM Shell — ТЗ (publish, RU)
 
 > Срез **v4.1** · продукт **0.3.0** · 2026-08-12  
-> Живой реестр в репо: [`docs/TZ.md`](../../TZ.md) · факт Done/Remaining: [`docs/STATUS.md`](../../STATUS.md)
+> Живой реестр в репо: [`docs/TZ.md`](../../TZ.md). Done/Remaining ведётся локально (не в публичном git).
 
 ## Назначение
 

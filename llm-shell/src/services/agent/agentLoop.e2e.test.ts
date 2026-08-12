@@ -81,6 +81,7 @@ describe("agent loop UI e2e (mock LLM)", () => {
         ...DEFAULT_SETTINGS.agent,
         autoExecute: true,
         workingDirectory: "C:/tmp",
+        planThenExecute: false,
       },
       workspace: { ...DEFAULT_SETTINGS.workspace, path: "C:/tmp" },
     };
@@ -127,6 +128,7 @@ describe("agent loop UI e2e (mock LLM)", () => {
         strictTools: true,
         mode: "agent" as const,
         workingDirectory: "C:/tmp",
+        planThenExecute: false,
       },
       workspace: { ...DEFAULT_SETTINGS.workspace, path: "C:/tmp" },
     };
@@ -168,6 +170,7 @@ describe("agent loop UI e2e (mock LLM)", () => {
         strictTools: true,
         mode: "ask" as const,
         workingDirectory: "C:/tmp",
+        planThenExecute: false,
       },
       workspace: { ...DEFAULT_SETTINGS.workspace, path: "C:/tmp" },
     };
@@ -180,5 +183,64 @@ describe("agent loop UI e2e (mock LLM)", () => {
 
     expect(client.streamChat).toHaveBeenCalledTimes(1);
     expect(useAgentStore.getState().status).toBe("idle");
+  });
+
+  it("planThenExecute runs a no-tools plan stream before tool_calls", async () => {
+    const toolCall: ToolCall = {
+      id: "call-plan",
+      type: "function",
+      function: {
+        name: "write_file",
+        arguments: JSON.stringify({
+          filePath: "C:/tmp/planned.txt",
+          content: "from plan",
+        }),
+      },
+    };
+    const planJson = JSON.stringify({
+      intake: "Create planned.txt",
+      doneWhen: "File on disk",
+      steps: [
+        { id: 1, goal: "Write file", tool: "write_file", argsHint: "C:/tmp/planned.txt" },
+        { id: 2, goal: "Verify", tool: "read_file", argsHint: "C:/tmp/planned.txt" },
+      ],
+    });
+
+    const client = mockClient([
+      [{ type: "content", text: planJson }, { type: "done" }],
+      [{ type: "tool_calls", toolCalls: [toolCall] }, { type: "done" }],
+      [{ type: "content", text: "Done planned." }, { type: "done" }],
+    ]);
+
+    const settings = {
+      ...DEFAULT_SETTINGS,
+      agent: {
+        ...DEFAULT_SETTINGS.agent,
+        autoExecute: true,
+        planThenExecute: true,
+        workingDirectory: "C:/tmp",
+      },
+      workspace: { ...DEFAULT_SETTINGS.workspace, path: "C:/tmp" },
+    };
+
+    await runAgentLoop("create planned.txt", {
+      client: client as unknown as import("@/services/llm/LLMClient").LLMClient,
+      registry: createDefaultToolRegistry(),
+      settings,
+    });
+
+    expect(client.streamChat.mock.calls.length).toBeGreaterThanOrEqual(2);
+    const planCall = client.streamChat.mock.calls[0]?.[0] as { tool_choice?: string };
+    expect(planCall?.tool_choice).toBe("none");
+    const msgs = useChatStore.getState().currentSession().messages;
+    expect(
+      msgs.some(
+        (m) =>
+          m.role === "assistant" &&
+          typeof m.content === "string" &&
+          m.content.includes("Execution plan"),
+      ),
+    ).toBe(true);
+    expect(writeFile).toHaveBeenCalledWith("C:/tmp/planned.txt", "from plan");
   });
 });

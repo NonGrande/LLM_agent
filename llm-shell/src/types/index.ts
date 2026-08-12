@@ -169,6 +169,11 @@ export interface AgentConfig {
   ragFromSuccess: boolean;
   /** Force tool_choice: required in Agent mode (helps weak local models) */
   strictTools: boolean;
+  /**
+   * Agent mode: first call asks for a JSON tool plan (no tools), then execute.
+   * Helps weak models separate planning from tool use.
+   */
+  planThenExecute: boolean;
   /** Ask = read-only tools; Agent = full tools; Plan = no tools */
   mode: AgentMode;
 }
@@ -473,6 +478,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
     offlineMode: false,
     ragFromSuccess: true,
     strictTools: false,
+    planThenExecute: true,
     mode: "agent",
   },
   workspace: {
